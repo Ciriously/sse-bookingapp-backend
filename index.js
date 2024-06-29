@@ -17,13 +17,19 @@ mongoose.connection.on("error", (err) => {
   console.log("Failed to connect to MongoDB", err);
 });
 
-app.use(
-  cors({
-    origin: "https://railyatri.vercel.app",
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    credentials: true,
-  })
-);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://railyatri.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
