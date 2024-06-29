@@ -36,7 +36,9 @@ const trainRouters = require("./routes/train");
 const port = 4000;
 require("dotenv").config();
 
-mongoose.connect("mongodb://localhost:27017/railyatri");
+mongoose.connect(
+  "mongodb+srv://SSE:SSE@sse.ccywu0i.mongodb.net/?retryWrites=true&w=majority&appName=SSE"
+);
 mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB");
 });
