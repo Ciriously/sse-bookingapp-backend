@@ -45,7 +45,13 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", (err) => {
   console.log("Failed to connect to MongoDB", err);
 });
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://railyatri.vercel.app"],
+    methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", userRoutes);
@@ -53,3 +59,5 @@ app.use("/admin", trainRouters);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// https://railyatri.vercel.app/
