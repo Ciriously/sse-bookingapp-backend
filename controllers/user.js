@@ -19,13 +19,16 @@ const createUser = async (req, res) => {
 // Read a user by ID
 const getUserById = async (req, res) => {
   const userId = req.params.id;
+
   try {
     const user = await User.findById(userId);
     if (!user) {
+      console.log("User not found for ID:", userId);
       return res.status(404).json({ error: "User not found" });
     }
     return res.status(200).json(user);
   } catch (error) {
+    console.log("Error fetching user:", error.message);
     return res.status(404).json({ error: error.message });
   }
 };
