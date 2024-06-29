@@ -16,28 +16,13 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", (err) => {
   console.log("Failed to connect to MongoDB", err);
 });
-
-// Use CORS middleware
-app.use(
-  cors({
-    origin: "https://railyatri.vercel.app",
-    methods: ["GET", "HEAD", "OPTIONS", "POST", "PUT"],
-    allowedHeaders: [
-      "Origin",
-      "X-Requested-With",
-      "Content-Type",
-      "Accept",
-      "Authorization",
-    ],
-    credentials: true,
-  })
-);
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", userRoutes);
 app.use("/admin", trainRouters);
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// https://railyatri.vercel.app/
