@@ -16,7 +16,11 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", (err) => {
   console.log("Failed to connect to MongoDB", err);
 });
-app.use(cors());
+const corsOptions = {
+  origin: "https://railyatri.vercel.app",
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", userRoutes);
