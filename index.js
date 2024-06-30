@@ -7,9 +7,7 @@ const trainRouters = require("./routes/train");
 const port = 4000;
 require("dotenv").config();
 
-mongoose.connect(
-  "mongodb+srv://SSE:SSE@sse.ccywu0i.mongodb.net/?retryWrites=true&w=majority&appName=SSE"
-);
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB");
 });
@@ -21,6 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", userRoutes);
 app.use("/admin", trainRouters);
+app.get("/", (req, res) => {
+  res.send("Welcome to Railyatri");
+});
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
