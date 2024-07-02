@@ -26,16 +26,26 @@ const getTrainById = async (req, res) => {
   }
 };
 
-// Read all trains
 const getAllTrains = async (req, res) => {
   try {
-    const trains = await Train.find();
+    const searchParams = req.query;
+
+    let filter = {};
+    if (searchParams.name) {
+      filter.name = { $regex: searchParams.name, $options: "i" }; // Case-insensitive search
+    }
+    if (searchParams.type) {
+      filter.type = searchParams.type;
+    }
+
+    const trains = await Train.find(filter);
+
     return res.status(200).json(trains);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.log(error);
+    return res.status(400).json({ error: error.message });
   }
 };
-
 // Update a train by ID
 const updateTrainById = async (req, res) => {
   const trainId = req.params.id;

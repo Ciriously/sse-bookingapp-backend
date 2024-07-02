@@ -79,6 +79,7 @@ const deleteUserById = async (req, res) => {
     return res.status(404).json({ error: error.message });
   }
 };
+
 const loginUser = async (req, res) => {
   var { email, password } = req.body;
   try {
