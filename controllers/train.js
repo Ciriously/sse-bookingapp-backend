@@ -52,7 +52,7 @@ const updateTrainById = async (req, res) => {
   const updateData = req.body;
   try {
     const train = await Train.findByIdAndUpdate(trainId, updateData, {
-      // new: true,
+      new: true,
     });
     if (!train) {
       return res.status(404).json({ error: "Train not found" });
